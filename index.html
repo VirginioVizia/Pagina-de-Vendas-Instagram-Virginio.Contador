@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="description" content="Vizia Contabilidade — especialistas em contabilidade para Agências de Turismo. Reduza impostos, regularize seu CADASTUR e elimine a bitributação." />
+  <title>Vizia Contabilidade | Especialista em Agências de Turismo</title>
+
+  <!-- Google Fonts: Playfair Display (display) + Outfit (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand:   '#5e17eb',
+            support: '#8a91b4',
+            ice:     '#f4f6fc',
+            dark:    '#0f0f1a',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans:    ['Outfit', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #f4f6fc;
+      font-family: 'Outfit', sans-serif;
+      color: #0f0f1a;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    :root {
+      --brand:   #5e17eb;
+      --support: #8a91b4;
+      --ice:     #f4f6fc;
+      --dark:    #0f0f1a;
+      --card:    #ffffff;
+      --radius:  18px;
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      position: relative;
+      background: var(--dark);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 24px 56px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 80% 15%, rgba(94,23,235,0.38) 0%, transparent 55%),
+        radial-gradient(circle at 10% 85%, rgba(94,23,235,0.20) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(94,23,235,0.22);
+      border: 1px solid rgba(94,23,235,0.45);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #c4aaff;
+      margin-bottom: 24px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7c3aed;
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.95rem, 7vw, 2.7rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero-headline .accent { font-style: italic; color: #a78bfa; }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 34px;
+    }
+    .hero-sub strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+    /* ══ BUTTONS ══ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 17px 26px;
+      background: var(--brand);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 10px 38px rgba(94,23,235,0.48), 0 2px 8px rgba(94,23,235,0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.13) 0%, transparent 55%);
+      border-radius: inherit; pointer-events: none;
+    }
+    .btn-primary:active { transform: scale(0.97); box-shadow: 0 5px 18px rgba(94,23,235,0.4); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 26px;
+      background: var(--brand); color: #fff;
+      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.93rem;
+      border-radius: 14px; border: none; cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 28px rgba(94,23,235,0.28);
+      transition: transform 0.15s ease;
+    }
+    .btn-secondary:active { transform: scale(0.97); }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 17px 26px;
+      background: #fff; color: var(--brand);
+      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem;
+      border-radius: 14px; border: none; cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+      transition: transform 0.15s ease;
+    }
+    .btn-white:active { transform: scale(0.97); }
+
+    /* Trust row */
+    .trust-row { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: rgba(255,255,255,0.45); }
+    .trust-check {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: rgba(94,23,235,0.28);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* Stat bar */
+    .stat-bar {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; overflow: hidden; margin-top: 38px;
+    }
+    .stat-item { padding: 18px 10px; text-align: center; }
+    .stat-item + .stat-item { border-left: 1px solid rgba(255,255,255,0.07); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: #a78bfa; line-height: 1; }
+    .stat-label { font-size: 0.66rem; color: rgba(255,255,255,0.38); margin-top: 5px; line-height: 1.4; }
+
+    /* ══ SECTIONS ══ */
+    .section { padding: 62px 24px; }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--brand);
+      background: rgba(94,23,235,0.08); border-radius: 100px;
+      padding: 5px 14px; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.65rem, 5.5vw, 2.2rem);
+      font-weight: 900; line-height: 1.15;
+      letter-spacing: -0.02em; color: var(--dark); margin-bottom: 10px;
+    }
+    .section-sub {
+      font-size: 0.92rem; font-weight: 300; line-height: 1.72;
+      color: var(--support); margin-bottom: 30px;
+    }
+
+    /* ══ PAIN CARDS ══ */
+    .pain-cards { display: flex; flex-direction: column; gap: 16px; }
+    .pain-card {
+      background: var(--card); border-radius: var(--radius);
+      padding: 26px 22px;
+      box-shadow: 0 2px 18px rgba(15,15,26,0.065), 0 1px 3px rgba(15,15,26,0.04);
+      border: 1px solid rgba(138,145,180,0.11);
+      position: relative; overflow: hidden;
+    }
+    .pain-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--brand); border-radius: 3px 0 0 3px;
+    }
+    .pain-icon {
+      width: 48px; height: 48px; background: rgba(94,23,235,0.08);
+      border-radius: 13px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; margin-bottom: 15px;
+    }
+    .pain-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 8px; line-height: 1.25;
+    }
+    .pain-body { font-size: 0.86rem; font-weight: 300; line-height: 1.68; color: var(--support); }
+    .pain-resolution {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid rgba(138,145,180,0.13);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .resolution-label { font-size: 0.74rem; font-weight: 600; color: var(--brand); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .resolution-text { font-size: 0.83rem; font-weight: 400; color: var(--dark); line-height: 1.52; }
+    .check-icon {
+      width: 22px; height: 22px; background: rgba(94,23,235,0.1);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* ══ DARK SECTION ══ */
+    .dark-section {
+      background: var(--dark); padding: 62px 24px;
+      position: relative; overflow: hidden;
+    }
+    .dark-section::before {
+      content: ''; position: absolute; top: -100px; right: -70px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(94,23,235,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .dark-section .section-title { color: #fff; }
+    .dark-section .section-sub { color: rgba(255,255,255,0.42); }
+    .dark-section .section-tag { background: rgba(94,23,235,0.28); color: #c4aaff; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 13px; margin-bottom: 34px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.065);
+      border-radius: 14px; padding: 18px 16px;
+    }
+    .feature-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem; font-weight: 700;
+      color: rgba(94,23,235,0.5); line-height: 1; flex-shrink: 0; width: 28px;
+    }
+    .feature-text-title { font-size: 0.88rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .feature-text-body { font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.42); line-height: 1.58; }
+
+    .insta-badge {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px; padding: 14px 16px; margin-bottom: 26px;
+    }
+    .insta-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: #fff; flex-shrink: 0;
+      letter-spacing: .02em;
+    }
+    .insta-handle { font-size: 0.84rem; font-weight: 600; color: #fff; }
+    .insta-sub { font-size: 0.73rem; color: rgba(255,255,255,0.38); margin-top: 2px; }
+
+    /* ══ FAQ ══ */
+    .faq-list { display: flex; flex-direction: column; gap: 11px; }
+    .faq-item {
+      background: var(--card); border-radius: 14px;
+      border: 1px solid rgba(138,145,180,0.13); overflow: hidden;
+      box-shadow: 0 1px 8px rgba(15,15,26,0.05);
+    }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    .faq-summary {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      padding: 19px 20px; cursor: pointer;
+      font-weight: 600; font-size: 0.88rem;
+      color: var(--dark); line-height: 1.42; user-select: none;
+    }
+    .faq-arrow {
+      width: 28px; height: 28px;
+      background: rgba(94,23,235,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.28s ease, background 0.2s ease;
+    }
+    details[open] .faq-arrow { transform: rotate(180deg); background: rgba(94,23,235,0.14); }
+    .faq-body {
+      padding: 0 20px 20px;
+      font-size: 0.84rem; font-weight: 300;
+      color: var(--support); line-height: 1.72;
+      border-top: 1px solid rgba(138,145,180,0.1);
+      padding-top: 16px;
+    }
+
+    /* ══ FINAL CTA ══ */
+    .final-cta {
+      background: linear-gradient(135deg, #3a0ca3 0%, #5e17eb 55%, #7c3aed 100%);
+      padding: 62px 24px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: ''; position: absolute; top: -70px; left: 50%;
+      transform: translateX(-50%);
+      width: 210px; height: 210px;
+      background: rgba(255,255,255,0.05); border-radius: 50%; pointer-events: none;
+    }
+    .final-cta .section-title { color: #fff; }
+    .final-cta .section-sub { color: rgba(255,255,255,0.62); margin-bottom: 26px; }
+    .final-cta .section-tag { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.82); margin-bottom: 16px; }
+
+    /* ══ FLOATING WA ══ */
+    .float-wa {
+      position: fixed; bottom: 22px; right: 18px; z-index: 9999;
+      width: 60px; height: 60px; border-radius: 50%; background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 22px rgba(37,211,102,0.5);
+      text-decoration: none;
+      animation: wa-pulse 2.6s ease-in-out infinite;
+      transition: transform 0.15s ease;
+    }
+    .float-wa:active { transform: scale(0.92); }
+    @keyframes wa-pulse {
+      0%,100% { box-shadow: 0 6px 22px rgba(37,211,102,0.5); }
+      50%      { box-shadow: 0 6px 22px rgba(37,211,102,0.5), 0 0 0 13px rgba(37,211,102,0.11); }
+    }
+
+    /* ══ REVEAL ANIMATION ══ */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ══ FOOTER ══ */
+    .footer {
+      padding: 28px 24px; text-align: center;
+      font-size: 0.74rem; color: var(--support);
+      background: #f4f6fc;
+      border-top: 1px solid rgba(138,145,180,0.14);
+    }
+    .footer a { color: var(--brand); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  ⚠️  CONFIGURE SEU NÚMERO DE WHATSAPP                    ║
+  ║  Pesquise "SEUNUMERO" neste arquivo e substitua          ║
+  ║  pelo seu número com DDI + DDD, sem espaços ou símbolos  ║
+  ║  Exemplo: 5571999998888  (55=Brasil, 71=Salvador/BA)     ║
+  ╚══════════════════════════════════════════════════════════╝
+  -->
+
+  <!-- BOTÃO FLUTUANTE WHATSAPP -->
+  <a class="float-wa"
+     href="https://wa.me/5571997171625?text=Ol%C3%A1!%20Vi%20seu%20an%C3%BAncio%20e%20sou%20dono%20de%20ag%C3%AAncia%20de%20turismo.%20Gostaria%20de%20uma%20consultoria."
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Falar no WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.506 3.932 1.395 5.61L0 24l6.562-1.368A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.36-.214-3.713.774.787-3.618-.235-.372A9.818 9.818 0 1112 21.818z"/>
+    </svg>
+  </a>
+
+
+  <!-- ═══════════════════════════════════
+       1. HERO
+  ═══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        Vizia Contabilidade · Especialista em Turismo
+      </div>
+
+      <h1 class="hero-headline">
+        Sua Agência paga imposto sobre o
+        <span class="accent">faturamento total</span>
+        ou apenas sobre a comissão?
+      </h1>
+
+      <p class="hero-sub">
+        Especialistas em contabilidade para o setor de viagens.<br/>
+        <strong>Proteja seu lucro, regularize seu CADASTUR</strong>
+        e pare de perder dinheiro com bitributação.
+      </p>
+
+      <!-- CTA HERO — ⚠️ Substitua SEUNUMERO -->
+      <a class="btn-primary"
+         href="https://wa.me/5571997171625?text=Ol%C3%A1!%20Vi%20seu%20an%C3%BAncio%20e%20sou%20dono%20de%20ag%C3%AAncia%20de%20turismo.%20Gostaria%20de%20uma%20consultoria."
+         target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.506 3.932 1.395 5.61L0 24l6.562-1.368A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.36-.214-3.713.774.787-3.618-.235-.372A9.818 9.818 0 1112 21.818z"/></svg>
+        Quero uma Análise Tributária Gratuita
+      </a>
+
+      <div class="trust-row">
+        <div class="trust-item">
+          <div class="trust-check"><svg width="9" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Sem custo de consulta
+        </div>
+        <div class="trust-item">
+          <div class="trust-check"><svg width="9" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Resposta em minutos
+        </div>
+        <div class="trust-item">
+          <div class="trust-check"><svg width="9" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          100% digital
+        </div>
+      </div>
+
+      <div class="stat-bar">
+        <div class="stat-item">
+          <div class="stat-num">+50</div>
+          <div class="stat-label">Empresas<br/>atendidas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Anos de<br/>experiência</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">30%</div>
+          <div class="stat-label">Redução<br/>na carga tributária</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+       2. DORES — PAIN CARDS (5 cards)
+  ═══════════════════════════════════ -->
+  <section class="section" style="background:#f4f6fc;">
+
+    <div class="reveal">
+      <span class="section-tag">Problemas do setor de turismo</span>
+      <h2 class="section-title">Esses erros estão<br/>corroendo seu lucro</h2>
+      <p class="section-sub">A maioria das agências paga muito mais imposto do que deveria — e não é só o ISS. São vários tributos que corroem sua margem todos os meses, por falta de uma contabilidade especializada no setor de viagens.</p>
+    </div>
+
+    <div class="pain-cards">
+
+      <div class="pain-card reveal reveal-d1">
+        <div class="pain-icon">💸</div>
+        <div class="pain-title">Carga tributária acima do necessário — e não é só o ISS</div>
+        <p class="pain-body">
+          Quem acha que agência de turismo só paga ISS está perdendo dinheiro todo mês sem saber. No Simples Nacional, uma única guia (DAS) reúne IRPJ, CSLL, PIS, COFINS, CPP e ISS — e o enquadramento errado na tabela de anexos faz você pagar alíquotas muito mais altas do que deveria. No Lucro Presumido, bases de cálculo mal definidas para repasses de passagens e hospedagens geram tributos a mais sobre receitas que nem são sua margem real.
+        </p>
+        <div class="pain-resolution">
+          <div class="check-icon">
+            <svg width="11" height="11" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="resolution-label">Como a Vizia resolve</div>
+            <div class="resolution-text">Fazemos a simulação entre os regimes tributários aplicando as regras específicas do setor de turismo — base de cálculo sobre comissão, dedução de repasses e aproveitamento de todos os benefícios legais — para que você pague o menor tributo possível sobre cada real que entra.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pain-card reveal reveal-d2">
+        <div class="pain-icon">🧾</div>
+        <div class="pain-title">Notas de Débito vs. Notas de Serviço: a confusão que custa caro</div>
+        <p class="pain-body">
+          Emitir o tipo errado de documento fiscal para reembolsos, comissões e repasses a fornecedores internacionais gera passivos tributários e autuações. A Nota de Débito tem regras específicas para o setor de viagens que poucos contadores dominam.
+        </p>
+        <div class="pain-resolution">
+          <div class="check-icon">
+            <svg width="11" height="11" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="resolution-label">Como a Vizia resolve</div>
+            <div class="resolution-text">Estruturamos seu fluxo fiscal com os documentos corretos para cada operação — pacotes nacionais, internacionais, receptivo e venda de ingressos — eliminando riscos de autuação.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pain-card reveal reveal-d3">
+        <div class="pain-icon">📋</div>
+        <div class="pain-title">CADASTUR & REPETUR: a conformidade que abre portas (ou fecha)</div>
+        <p class="pain-body">
+          Operar sem o CADASTUR regularizado impede sua agência de acessar linhas de crédito do BNDES, participar de licitações e fechar contratos corporativos. Muitas agências perdem contratos milionários por irregularidade documental.
+        </p>
+        <div class="pain-resolution">
+          <div class="check-icon">
+            <svg width="11" height="11" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="resolution-label">Como a Vizia resolve</div>
+            <div class="resolution-text">Cuidamos de todo o processo junto ao Ministério do Turismo e mantemos seu REPETUR atualizado para que sua agência opere sem riscos e com crédito disponível.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Alta temporada / funcionários temporários -->
+      <div class="pain-card reveal reveal-d1">
+        <div class="pain-icon">🏖️</div>
+        <div class="pain-title">Alta temporada: contratar errado sai mais caro do que parece</div>
+        <p class="pain-body">
+          Chega o verão, o réveillon ou a Semana Santa — e sua agência explode de demanda. Você contrata às pressas, sem saber se é melhor CLT, contrato por prazo determinado, temporário pela Lei 6.019/74 ou prestador de serviço. Um vínculo empregatício não reconhecido ou uma rescisão mal calculada vira reclamação trabalhista meses depois, num momento em que o caixa já está no vale da baixa temporada.
+        </p>
+        <div class="pain-resolution">
+          <div class="check-icon">
+            <svg width="11" height="11" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="resolution-label">Como a Vizia resolve</div>
+            <div class="resolution-text">Orientamos o modelo de contratação ideal para cada perfil de vaga — guia, atendente, motorista, operacional — calculamos encargos reais, redigimos os contratos corretos e cuidamos de toda a admissão e demissão com segurança jurídica e sem surpresas no eSocial.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Fluxo de caixa na baixa temporada -->
+      <div class="pain-card reveal reveal-d2">
+        <div class="pain-icon">📉</div>
+        <div class="pain-title">Baixa temporada: o caixa seca e as obrigações não esperam</div>
+        <p class="pain-body">
+          Janeiro faturou bem. Fevereiro também. Mas em maio o movimento caiu 60% — e ainda têm as guias de impostos, o pró-labore, o aluguel e os salários fixos chegando. Sem um planejamento de fluxo de caixa que leve em conta a sazonalidade do turismo, muitas agências entram em dívida justamente no mês em que deveriam estar se preparando para a próxima temporada.
+        </p>
+        <div class="pain-resolution">
+          <div class="check-icon">
+            <svg width="11" height="11" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="resolution-label">Como a Vizia resolve</div>
+            <div class="resolution-text">Montamos um planejamento financeiro mensal que antecipa as obrigações de cada período, define reservas mínimas de capital de giro e indica o momento certo para parcelar tributos, negociar com fornecedores ou buscar crédito — para que sua agência atravesse a baixa temporada sem aperto e entre na alta com fôlego.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA pós-dores — ⚠️ Substitua SEUNUMERO -->
+    <div style="margin-top:34px;" class="reveal">
+      <a class="btn-secondary"
+         href="https://wa.me/5571997171625?text=Ol%C3%A1!%20Vi%20seu%20an%C3%BAncio%20e%20sou%20dono%20de%20ag%C3%AAncia%20de%20turismo.%20Gostaria%20de%20uma%20consultoria."
+         target="_blank" rel="noopener noreferrer">
+        Quero resolver isso agora &rarr;
+      </a>
+      <p style="text-align:center; font-size:0.73rem; color:var(--support); margin-top:9px;">Análise gratuita, sem compromisso.</p>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+       3. POR QUE A VIZIA CONTABILIDADE
+  ═══════════════════════════════════ -->
+  <section class="dark-section">
+
+    <div class="reveal">
+      <span class="section-tag">Autoridade &amp; Especialidade</span>
+      <h2 class="section-title">Por que a Vizia Contabilidade?</h2>
+      <p class="section-sub">Não basta ter um contador — você precisa de um escritório que fala a linguagem do turismo. Com Virgínio Jesus à frente, a Vizia une experiência técnica e conhecimento real do setor.</p>
+    </div>
+
+    <div class="insta-badge reveal">
+      <div class="insta-avatar">VZ</div>
+      <div>
+        <div class="insta-handle">Vizia Contabilidade</div>
+        <div class="insta-sub">Virgínio Jesus · @virginiocontador no Instagram</div>
+      </div>
+      <svg style="margin-left:auto; flex-shrink:0;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </div>
+
+    <div class="feature-list">
+      <div class="feature-item reveal reveal-d1">
+        <div class="feature-num">01</div>
+        <div>
+          <div class="feature-text-title">Expertise exclusiva no setor de viagens</div>
+          <div class="feature-text-body">Atendendo agências emissivas, receptivas e operadoras há mais de uma década. A Vizia conhece a legislação específica do turismo: Lei nº 11.771/2008, regulamentações da ABAV, tributação sobre comissão e repasses, e todas as obrigações acessórias do setor.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-d2">
+        <div class="feature-num">02</div>
+        <div>
+          <div class="feature-text-title">Planejamento tributário que vai além do ISS</div>
+          <div class="feature-text-body">Analisamos a carga tributária completa — DAS do Simples Nacional, IRPJ, CSLL, PIS, COFINS, CPP e ISS — para encontrar o regime e o enquadramento que resulta no menor tributo legal. Não é improviso: é planejamento com simulação real.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-d3">
+        <div class="feature-num">03</div>
+        <div>
+          <div class="feature-text-title">Atendimento direto via WhatsApp</div>
+          <div class="feature-text-body">Sem secretária, sem fila de espera. Você fala diretamente com Virgínio Jesus e a equipe da Vizia. Dúvidas respondidas no dia, guias emitidas no prazo e declarações sem stress.</div>
+        </div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-num">04</div>
+        <div>
+          <div class="feature-text-title">Migração sem burocracia</div>
+          <div class="feature-text-body">Troca de contador com zero dor de cabeça. A Vizia cuida de toda a transição — levantamento de passivos, regularização de pendências e continuidade operacional garantida.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA dark — ⚠️ Substitua SEUNUMERO -->
+    <a class="btn-primary reveal"
+       href="https://wa.me/5571997171625?text=Ol%C3%A1!%20Vi%20seu%20an%C3%BAncio%20e%20sou%20dono%20de%20ag%C3%AAncia%20de%20turismo.%20Gostaria%20de%20uma%20consultoria."
+       target="_blank" rel="noopener noreferrer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.506 3.932 1.395 5.61L0 24l6.562-1.368A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.36-.214-3.713.774.787-3.618-.235-.372A9.818 9.818 0 1112 21.818z"/></svg>
+      Falar com Especialista Agora
+    </a>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+       4. FAQ
+  ═══════════════════════════════════ -->
+  <section class="section" style="background:#f4f6fc;">
+
+    <div class="reveal">
+      <span class="section-tag">Dúvidas frequentes</span>
+      <h2 class="section-title">Perguntas que todo dono de agência faz</h2>
+      <p class="section-sub">Respostas diretas para as principais dúvidas antes de começar.</p>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <details>
+          <summary class="faq-summary">
+            Minha agência paga mesmo todos esses impostos? Achei que só pagava ISS.
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            É um equívoco muito comum. O ISS é apenas um dos tributos. No Simples Nacional, a guia DAS já reúne IRPJ, CSLL, PIS, COFINS, CPP (previdência) e ISS — e dependendo do faturamento e do anexo em que sua agência está enquadrada, a alíquota efetiva pode ser bem maior do que a necessária. No Lucro Presumido, incidem ainda PIS e COFINS separados, além de IRPJ e CSLL sobre a presunção de lucro. A Vizia faz a simulação completa entre os regimes para identificar onde você paga menos — dentro da lei.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal reveal-d1">
+        <details>
+          <summary class="faq-summary">
+            Como trocar de contador para a Vizia sem parar minha empresa?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            A transição é mais simples do que parece. Após assinar o contrato, a Vizia envia a carta de comunicação ao seu contador atual e cuida de toda a transferência da documentação. O processo leva em média 5 dias úteis e você não perde nenhum prazo durante a migração. Assumimos a responsabilidade de regularizar qualquer pendência encontrada.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal reveal-d1">
+        <details>
+          <summary class="faq-summary">
+            Posso contratar funcionários só para a alta temporada sem risco trabalhista?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            Sim, desde que feito da forma correta. A Lei 6.019/74 regulamenta o trabalho temporário e permite contratos de até 180 dias (prorrogáveis por mais 90), com encargos definidos e vínculo com a empresa de trabalho temporário, não com a sua agência diretamente. Para funções mais específicas, o contrato por prazo determinado também é uma alternativa — mas tem regras próprias. Usar o modelo errado transforma um temporário em funcionário fixo perante a Justiça do Trabalho. A Vizia orienta o modelo ideal para cada tipo de vaga e cuida de toda a documentação.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal reveal-d2">
+        <details>
+          <summary class="faq-summary">
+            Como não passar aperto financeiro na baixa temporada?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            A raiz do problema está na falta de planejamento de fluxo de caixa com visão sazonal. Durante a alta temporada, é preciso separar uma reserva calculada sobre as obrigações dos meses seguintes — impostos, folha, pró-labore, aluguel. A Vizia monta um calendário financeiro mês a mês, com alertas sobre vencimentos e sugestões de parcelamento ou antecipação de tributos quando isso é mais vantajoso. O objetivo é que sua agência não precise de crédito emergencial na baixa — mas que esteja capitalizada para investir antes da próxima alta.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal reveal-d2">
+        <details>
+          <summary class="faq-summary">
+            O que é o CADASTUR e minha agência precisa ter?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            Sim. O CADASTUR é obrigatório para agências de viagens pela Lei Geral do Turismo (Lei nº 11.771/2008). Operar sem ele configura infração administrativa. O cadastro ativo também permite acesso a financiamentos do BNDES, participação em feiras do setor e aumenta a credibilidade junto a fornecedores e operadoras internacionais. A Vizia cuida de todo o processo de regularização e renovação.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal reveal-d3">
+        <details>
+          <summary class="faq-summary">
+            Qual o regime tributário ideal para minha agência?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            Depende do faturamento, margem de lucro e estrutura operacional. Agências com faturamento até R$ 4,8M geralmente se beneficiam do Simples Nacional — mas o Lucro Presumido pode ser mais vantajoso quando há grande volume de repasses a fornecedores (passagens, hotéis). A Vizia faz essa simulação gratuitamente na análise tributária inicial, sem nenhum compromisso.
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-item reveal">
+        <details>
+          <summary class="faq-summary">
+            Atendem agências fora da Bahia?
+            <div class="faq-arrow">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#5e17eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </summary>
+          <div class="faq-body">
+            Sim! A Vizia atende agências em todo o Brasil de forma 100% digital. Toda comunicação e envio de documentos é feita via WhatsApp e e-mail, sem necessidade de deslocamento. Já atendemos clientes de São Paulo, Rio de Janeiro, Minas Gerais, Ceará e outros estados.
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+       5. FINAL CTA
+  ═══════════════════════════════════ -->
+  <section class="final-cta">
+    <div class="reveal">
+      <span class="section-tag">Próximo passo</span>
+      <h2 class="section-title" style="font-size:clamp(1.75rem,6vw,2.35rem); margin-bottom:12px;">
+        Descubra quanto sua agência está pagando a mais de imposto
+      </h2>
+      <p class="section-sub">
+        Em uma análise gratuita de 30 minutos, mostramos exatamente quanto você pode economizar — sem compromisso e sem custo.
+      </p>
+
+      <!-- FINAL CTA — ⚠️ Substitua SEUNUMERO -->
+      <a class="btn-white"
+         href="https://wa.me/5571997171625?text=Ol%C3%A1!%20Vi%20seu%20an%C3%BAncio%20e%20sou%20dono%20de%20ag%C3%AAncia%20de%20turismo.%20Gostaria%20de%20uma%20consultoria."
+         target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#5e17eb"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.506 3.932 1.395 5.61L0 24l6.562-1.368A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.37l-.36-.214-3.713.774.787-3.618-.235-.372A9.818 9.818 0 1112 21.818z"/></svg>
+        Quero uma Análise Tributária Gratuita
+      </a>
+
+      <div style="display:flex; justify-content:center; gap:22px; margin-top:22px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:6px; font-size:0.72rem; color:rgba(255,255,255,0.52);">
+          <span>🔒</span> Sigilo garantido
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; font-size:0.72rem; color:rgba(255,255,255,0.52);">
+          <span>⚡</span> Resposta imediata
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; font-size:0.72rem; color:rgba(255,255,255,0.52);">
+          <span>🎯</span> Sem compromisso
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <footer class="footer">
+    <p style="margin-bottom:5px; font-weight:600; color:#0f0f1a;">Vizia Contabilidade</p>
+    <p>Virgínio Jesus · Especialista em contabilidade para o setor de turismo</p>
+    <p style="margin-top:10px;">
+      <a href="https://www.instagram.com/virginiocontador/" target="_blank" rel="noopener">@virginiocontador</a>
+      &nbsp;·&nbsp;
+      <!-- ⚠️ Substitua SEUNUMERO abaixo -->
+      <a href="https://wa.me/5571997171625" target="_blank" rel="noopener">WhatsApp</a>
+    </p>
+    <p style="margin-top:14px; font-size:0.66rem; color:#b0b7d4;">
+      © 2025 Vizia Contabilidade. Todos os direitos reservados.<br/>
+      As informações desta página têm caráter informativo e não substituem consultoria contábil ou jurídica.
+    </p>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════
+       JAVASCRIPT — Scroll Reveal + FAQ
+  ═══════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* Scroll reveal via IntersectionObserver */
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        observer.observe(el);
+      });
+
+      /* FAQ: fechar outros ao abrir um */
+      document.querySelectorAll('details').forEach(function (detail) {
+        detail.addEventListener('toggle', function () {
+          if (detail.open) {
+            document.querySelectorAll('details').forEach(function (other) {
+              if (other !== detail && other.open) other.open = false;
+            });
+          }
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
